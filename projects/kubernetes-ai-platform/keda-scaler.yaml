@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: vllm-keda-autoscaler
+  namespace: ai-platform
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: llama-3-8b-serving-predictor-default
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  cooldownPeriod: 300 # Cooldown wait buffer to avoid pod flapping
+  triggers:
+  - type: prometheus
+    metadata:
+      serverAddress: http://prometheus-k8s.monitoring.svc:9090
+      metricName: vllm_num_requests_waiting
+      # Target query sum
+      query: sum(vllm:num_requests_waiting)
+      threshold: '5'

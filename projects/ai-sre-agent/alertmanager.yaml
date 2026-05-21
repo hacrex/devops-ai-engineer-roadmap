@@ -1,0 +1,16 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'ai-sre-agent'
+
+receivers:
+- name: 'ai-sre-agent'
+  webhook_configs:
+  # Route critical crash loops directly to the python flask agent port
+  - url: 'http://ai-sre-service.ai-platform.svc.cluster.local:5000/alert'
+    send_resolved: true

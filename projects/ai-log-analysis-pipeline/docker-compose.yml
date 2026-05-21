@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # 1. High-Performance Telemetry Router
+  vector:
+    image: timberio/vector:0.35.0-alpine
+    container_name: log-vector-router
+    volumes:
+      - ./vector.yaml:/etc/vector/vector.yaml:ro
+      - /var/log:/var/log:ro
+    ports:
+      - "8383:8383"
+    restart: unless-stopped
+
+  # 2. Automated Python LLM Diagnostic Script
+  log-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-log-analyzer
+    environment:
+      - OLLAMA_HOST=http://ollama-engine:11434
+    depends_on:
+      - vector
+    restart: unless-stopped
+
+  # 3. Local Model Runtime
+  ollama-engine:
+    image: ollama/ollama:latest
+    container_name: log-llm-engine
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_storage:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_storage:

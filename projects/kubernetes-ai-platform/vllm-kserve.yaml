@@ -1,0 +1,33 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: llama-3-8b-serving
+  namespace: ai-platform
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: huggingface
+      resources:
+        limits:
+          cpu: "4"
+          memory: 16Gi
+          nvidia.com/gpu: "1" # Mounts physical GPU
+        requests:
+          cpu: "2"
+          memory: 8Gi
+          nvidia.com/gpu: "1"
+      # Toleration for node taint mapping
+      tolerations:
+      - key: "sku"
+        operator: "Equal"
+        value: "gpu"
+        effect: "NoSchedule"
+      # Configure container arguments to start vLLM
+      args:
+        - "--model"
+        - "meta-llama/Meta-Llama-3-8B-Instruct"
+        - "--port"
+        - "8080"
+        - "--max-model-len"
+        - "4096"

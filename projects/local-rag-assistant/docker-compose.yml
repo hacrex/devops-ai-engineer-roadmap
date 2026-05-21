@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  qdrant-db:
+    image: qdrant/qdrant:v1.8.0
+    container_name: rag-vector-store
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+  ollama-engine:
+    image: ollama/ollama:latest
+    container_name: rag-llm-engine
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_storage:/root/.ollama
+    # Add GPU support if host system has physical hardware
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  streamlit-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-streamlit-portal
+    ports:
+      - "8501:8501"
+    environment:
+      - QDRANT_HOST=qdrant-db
+      - OLLAMA_HOST=http://ollama-engine:11434
+    depends_on:
+      - qdrant-db
+      - ollama-engine
+    restart: unless-stopped
+
+volumes:
+  qdrant_storage:
+  ollama_storage:
