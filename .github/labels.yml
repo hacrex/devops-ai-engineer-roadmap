@@ -1,0 +1,92 @@
+# Labels for the DevOps AI Engineer Roadmap repository
+
+# Issue Type Labels
+- name: bug
+  color: d73a4a
+  description: Something isn't working correctly
+- name: enhancement
+  color: a2eeef
+  description: New feature or improvement request
+- name: documentation
+  color: 0075ca
+  description: Improvements or additions to documentation
+- name: question
+  color: d876e3
+  description: Further information is requested
+
+# Status Labels
+- name: triage
+  color: e11d21
+  description: Needs review and categorization
+- name: accepted
+  color: 2cbe4e
+  description: Issue/PR has been accepted for implementation
+- name: in progress
+  color: fbca04
+  description: Currently being worked on
+- name: blocked
+  color: c40652
+  description: Waiting on external dependency
+- name: needs more info
+  color: 666666
+  description: Requires additional information from reporter
+
+# Area Labels
+- name: fundamentals
+  color: 1d76db
+  description: Linux, containers, networking basics
+- name: kubernetes
+  color: 326ce5
+  description: Kubernetes manifests, deployments, operators
+- name: ai-inference
+  color: ff6f61
+  description: vLLM, Ollama, KServe, model serving
+- name: agents
+  color: 9b59b6
+  description: AI agents, MCP, autonomous workflows
+- name: rag-vectordb
+  color: 2ecc71
+  description: RAG pipelines, vector databases
+- name: observability
+  color: f39c12
+  description: Monitoring, tracing, AIOps
+- name: security
+  color: e74c3c
+  description: Guardrails, security policies, compliance
+- name: projects
+  color: 1abc9c
+  description: Capstone projects and examples
+- name: ci-cd
+  color: 34495e
+  description: GitHub Actions, automation, testing
+
+# Difficulty/Priority Labels
+- name: good first issue
+  color: 7057ff
+  description: Great for newcomers to contribute
+- name: help wanted
+  color: 008672
+  description: Extra attention is needed
+- name: high priority
+  color: b60205
+  description: Urgent attention required
+- name: medium priority
+  color: ff9f1c
+  description: Important but not urgent
+- name: low priority
+  color: cccccc
+  description: Nice to have when time permits
+
+# Contribution Recognition
+- name: hacktoberfest
+  color: ff7518
+  description: Participating in Hacktoberfest
+- name: beginner friendly
+  color: 87CEEB
+  description: Suitable for beginners
+- name: intermediate
+  color: FF8C00
+  description: Requires some experience
+- name: advanced
+  color: DC143C
+  description: Requires deep expertise

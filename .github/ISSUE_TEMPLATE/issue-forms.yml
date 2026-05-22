@@ -1,0 +1,244 @@
+name: 🐛 Bug Report
+description: Report a bug or issue in the roadmap
+title: "[BUG]: <title>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for taking the time to report an issue! 🙏
+        
+        Please fill out the information below to help us reproduce and fix the issue quickly.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which area of the roadmap does this affect?
+      options:
+        - Documentation
+        - Kubernetes Manifests
+        - Python Code
+        - Docker/Docker Compose
+        - Terraform Scripts
+        - Tests
+        - Other
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Clearly describe what went wrong
+      placeholder: Tell us what you expected vs what actually happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to '...'
+        2. Run command '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Your setup (OS, Kubernetes version, GPU model, etc.)
+      placeholder: e.g., Ubuntu 22.04, K8s 1.28, NVIDIA A10G
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs/Errors
+      description: Paste any error messages or logs
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow the project's Code of Conduct
+          required: true
+
+---
+name: 💡 Feature Request
+description: Suggest a new feature or improvement
+title: "[FEATURE]: <title>"
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## We love new ideas! 💡
+        
+        Share your suggestion for improving the DevOps AI Engineer Roadmap.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem would this feature solve?
+      placeholder: I'm always frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your proposed solution or feature
+      placeholder: It would be great if...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternatives?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Nice to have
+        - Would improve my experience
+        - Critical for my use case
+      default: 1
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribution
+      description: Would you like to implement this feature?
+      options:
+        - label: Yes, I'd like to submit a PR for this
+          required: false
+
+---
+name: 📚 Documentation Improvement
+description: Suggest improvements to documentation
+title: "[DOCS]: <title>"
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Help us improve our docs! 📖
+        
+        Clear documentation is crucial for learning. Thank you for helping!
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs improvement?
+      options:
+        - README
+        - Module Guide
+        - Code Comments
+        - Examples/Tutorials
+        - Troubleshooting
+        - Other
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current State
+      description: What's unclear or missing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested Improvement
+      description: What changes would you suggest?
+    validations:
+      required: true
+
+  - type: input
+    id: file-path
+    attributes:
+      label: File Path (if known)
+      placeholder: e.g., ./projects/local-rag-assistant/README.md
+    validations:
+      required: false
+
+---
+name: 🎓 Learning Path Question
+description: Ask a question about the learning roadmap
+title: "[QUESTION]: <title>"
+labels: ["question", "learning"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Got questions? We're here to help! 🤔
+        
+        Ask anything about the DevOps AI Engineer learning path.
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Related Module
+      description: Which module does your question relate to?
+      options:
+        - Fundamentals (Linux/Containers)
+        - Prompt Engineering
+        - Local LLMs
+        - Kubernetes AI
+        - Hugging Face Ecosystem
+        - AI Agents
+        - Model Context Protocol (MCP)
+        - Automation Orchestration
+        - RAG & Vector Databases
+        - Observability & AIOps
+        - AI Security & Guardrails
+        - Capstone Projects
+        - General/Other
+      default: 11
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Be as specific as possible
+      placeholder: I'm confused about...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any code, errors, or examples related to your question?
+      render: shell
+    validations:
+      required: false

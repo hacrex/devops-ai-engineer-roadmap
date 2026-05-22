@@ -1,66 +1,44 @@
-```
+```yaml
 # Dependencies
-**/venv/
-**/.venv/
-**/__pycache__/
-**/.mypy_cache/
-**/.pytest_cache/
-**/node_modules/
+node_modules/
+venv/
+.venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+target/
+.gradle/
 
-# Python
+# Build artifacts
+dist/
+build/
 *.pyc
-*.pyo
-*.pyd
-.Python
-**/__pycache__/
-**/*.py[cod]
-**/*$py.class
-**/*.so
+*.class
+*.o
+*.obj
+*.out
 
-# Distribution / packaging
-.Python
-**/build/
-**/develop-eggs/
-**/dist/
-**/downloads/
-**/eggs/
-**/.eggs/
-**/lib/
-**/lib64/
-**/parts/
-**/sdist/
-**/var/
-**/wheels/
-**/*.egg-info/
-**/.installed.cfg
-**/*.egg
+# Environment files
+.env
+.env.local
+*.env.*
 
-# Testing
-**/.tox/
-**/.nox/
-**/.coverage
-**/coverage/
-**/htmlcov/
-**/.pytest_cache/
-
-# Environment
-**/.env
-**/.env.*
-**/env/
-**/.venv/
-**/venv/
-
-# IDE
-**/.vscode/
-**/.idea/
-**/*.swp
-**/*.swo
-**/*.tmp
-
-# OS
-**/.DS_Store
-**/Thumbs.db
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
 
 # Logs
-**/*.log
+*.log
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# System files
+.DS_Store
+Thumbs.db
 ```

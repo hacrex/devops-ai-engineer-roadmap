@@ -1,0 +1,81 @@
+name: Auto Welcome & Stargazer Stats
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened, closed]
+  watch:
+    types: [started]
+
+jobs:
+  welcome-new-contributor:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request_target' && github.event.action == 'opened'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Welcome First-Time Contributor
+        uses: wow-actions/welcome@v1
+        with:
+          FIRST_PR_COMMENT: |
+            ## 🎉 Welcome to the DevOps AI Engineer Roadmap!
+            
+            Thank you for your first pull request! We're excited to have you contribute.
+            
+            ### What happens next?
+            - ✅ Maintainers will review your PR within 48 hours
+            - 💬 Feel free to ask questions in the comments
+            - 📝 Make sure you've read our [CONTRIBUTING.md](./CONTRIBUTING.md)
+            
+            ### Quick Tips:
+            - Keep PRs focused and atomic
+            - Include tests where applicable
+            - Update documentation if needed
+            
+            Happy contributing! 🚀
+            
+            > *P.S. Don't forget to ⭐ this repo if you find it helpful!*
+
+  issue-acknowledgment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Acknowledge Issue
+        uses: wow-actions/welcome@v1
+        with:
+          FIRST_ISSUE_COMMENT: |
+            ## 👋 Thanks for opening an issue!
+            
+            We appreciate you taking the time to report this. Here's what to expect:
+            
+            ### Next Steps:
+            - 🔍 A maintainer will review your issue within 48 hours
+            - 🏷️ Appropriate labels will be added
+            - 💬 You'll receive updates as we work on it
+            
+            ### While you wait:
+            - Check out our [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for quick fixes
+            - Browse existing issues to see if there's related discussion
+            - Consider contributing a fix if you have ideas!
+            
+            Thanks for helping make this roadmap better! 🙌
+
+  stargazer-stats:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'watch'
+    steps:
+      - name: Log new star
+        run: |
+          echo "🌟 New star from ${{ github.actor }}!"
+          echo "Current stargazers: Check https://github.com/${{ github.repository }}/stargazers"
+
+  auto-label-pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request_target'
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
