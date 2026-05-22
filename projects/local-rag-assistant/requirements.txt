@@ -1,0 +1,6 @@
+streamlit>=1.28.0
+qdrant-client>=1.6.0
+sentence-transformers>=2.2.0
+httpx>=0.24.0
+pytest>=7.0.0
+pytest-cov>=4.0.0
