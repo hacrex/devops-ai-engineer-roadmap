@@ -1,0 +1,15 @@
+# Core Dependencies
+requests>=2.31.0
+python-dotenv>=1.0.0
+pyyaml>=6.0
+tqdm>=4.65.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.11.0
+flake8>=6.1.0
+mypy>=1.7.0
+
+# Documentation
+markdown-link-check>=1.0.0

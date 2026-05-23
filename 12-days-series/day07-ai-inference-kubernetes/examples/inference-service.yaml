@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-inference-service
+  labels:
+    app: llm-inference
+spec:
+  type: ClusterIP
+  selector:
+    app: llm-inference
+  ports:
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: http
+---
+# Alternative: LoadBalancer for cloud deployment
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: llm-inference-lb
+# spec:
+#   type: LoadBalancer
+#   selector:
+#     app: llm-inference
+#   ports:
+#   - port: 80
+#     targetPort: 8000
