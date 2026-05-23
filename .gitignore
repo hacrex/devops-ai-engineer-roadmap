@@ -1,29 +1,35 @@
-```yaml
-# Dependencies
-node_modules/
-venv/
-.venv/
+```
+# Python
 __pycache__/
-.mypy_cache/
-.pytest_cache/
-target/
-.gradle/
-
-# Build artifacts
-dist/
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
-*.pyc
-*.class
-*.o
-*.obj
-*.out
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Environment files
+# Virtual environments
+venv/
+ENV/
 .env
-.env.local
-*.env.*
+.venv
+env.bak
+venv.bak
 
-# Editor/IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
@@ -33,12 +39,52 @@ build/
 # Logs
 *.log
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
+# Environment
+.env
+.env.local
+*.env.*
 
-# System files
+# Coverage
+.coverage
+htmlcov/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Pytest
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints
+
+# OS
 .DS_Store
 Thumbs.db
 ```
