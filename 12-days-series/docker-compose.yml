@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # ChromaDB for vector storage (Day 09)
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_data:/chroma/chroma
+    environment:
+      - CHROMA_DB_IMPL=chromadb.db.impl.sqlite
+    networks:
+      - ai-network
+    restart: unless-stopped
+
+  # Prometheus for monitoring (Day 10)
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - ai-network
+    restart: unless-stopped
+
+  # Grafana for visualization (Day 10)
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - ai-network
+    restart: unless-stopped
+
+  # Redis for caching (Day 09 RAG)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ai-network
+    restart: unless-stopped
+
+  # PostgreSQL for metadata (Day 09/12)
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=ai_user
+      - POSTGRES_PASSWORD=ai_password
+      - POSTGRES_DB=ai_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ai-network
+    restart: unless-stopped
+
+  # Local LLM server - vLLM (Day 05/07)
+  # Uncomment if you have NVIDIA GPU
+  # vllm:
+  #   image: vllm/vllm-openai:latest
+  #   ports:
+  #     - "8001:8000"
+  #   volumes:
+  #     - ./models:/models
+  #   environment:
+  #     - HUGGING_FACE_HUB_TOKEN=${HUGGINGFACE_TOKEN}
+  #   command: >
+  #     --model meta-llama/Llama-2-7b-chat-hf
+  #     --download-dir /models
+  #     --host 0.0.0.0
+  #     --port 8000
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
+  #   networks:
+  #     - ai-network
+  #   restart: unless-stopped
+
+  # MCP Server Example (Day 08)
+  # mcp-server:
+  #   build:
+  #     context: ./day08-ai-agents-mcp/examples
+  #     dockerfile: Dockerfile.mcp
+  #   ports:
+  #     - "8002:8000"
+  #   environment:
+  #     - OPENAI_API_KEY=${OPENAI_API_KEY}
+  #   networks:
+  #     - ai-network
+  #   restart: unless-stopped
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  redis_data:
+  postgres_data:
+
+networks:
+  ai-network:
+    driver: bridge
