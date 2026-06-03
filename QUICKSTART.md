@@ -93,6 +93,9 @@ make test
 ## 🆘 Need Help?
 
 - 📖 Full documentation: [README.md](README.md)
+- 📚 Deeper study resources: [STUDY_MATERIALS.md](STUDY_MATERIALS.md)
+- 🧰 Hardware and API setup: [HOME_LAB_REQUIREMENTS.md](HOME_LAB_REQUIREMENTS.md)
+- 🌐 AI ecosystem watchlist: [AI_ECOSYSTEM.md](AI_ECOSYSTEM.md)
 - 🐛 Found an issue? [Open an Issue](https://github.com/your-repo/issues)
 - 💬 Questions? Check [Troubleshooting Guide](TROUBLESHOOTING.md)
 - 🤝 Want to contribute? See [CONTRIBUTING.md](CONTRIBUTING.md)
