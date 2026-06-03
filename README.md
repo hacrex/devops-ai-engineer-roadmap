@@ -60,8 +60,6 @@ By following this repository, you will practice building:
 | [`ROADMAP.md`](./ROADMAP.md) | 24-week phased roadmap from infrastructure fundamentals to AI security and AIOps. |
 | [`QUICKSTART.md`](./QUICKSTART.md) | Fastest path to run a local lab and start building. |
 | [`STUDY_MATERIALS.md`](./STUDY_MATERIALS.md) | Curated study resources, official docs, labs, portfolio ideas, and milestones. |
-| [`HOME_LAB_REQUIREMENTS.md`](./HOME_LAB_REQUIREMENTS.md) | Hardware tiers, local LLM sizing, cloud API options, NVIDIA NIM, and Hugging Face setup. |
-| [`AI_ECOSYSTEM.md`](./AI_ECOSYSTEM.md) | llmfit, llm-checker, top AI companies to track, model families, and model-selection guidance. |
 | [`12-days-series/`](./12-days-series/README.md) | Daily hands-on learning sequence for core DevOps + AI skills. |
 | [`fundamentals/`](./fundamentals/) | Linux, networking, Docker, Kubernetes, CI/CD, Terraform, storage, and Python automation notes. |
 | [`prompt-engineering/`](./prompt-engineering/) | Prompting patterns, structured outputs, tool use, and evaluation concepts. |
@@ -207,7 +205,6 @@ These are the highest-value next improvements to make the repository more useful
 ### Project reliability
 
 - Add `.env.example` files for every runnable project.
-- Add provider-specific API examples for NVIDIA NIM, Hugging Face Inference Providers, OpenAI-compatible APIs, Gemini, Mistral, and Anthropic.
 - Add health checks to all Docker Compose services.
 - Add Docker Compose profiles for CPU-only and GPU-enabled modes.
 - Add smoke-test scripts for each project under a shared `scripts/` directory.
@@ -217,7 +214,7 @@ These are the highest-value next improvements to make the repository more useful
 
 - Add a vLLM OpenAI-compatible inference demo with request/response examples.
 - Add a RAG evaluation notebook or script that scores retrieval quality before and after chunking changes.
-- Add a model-serving benchmark comparing Ollama, llama.cpp, vLLM, NVIDIA NIM, Hugging Face Inference Providers, and OpenAI-compatible APIs on the same prompt set.
+- Add a model-serving benchmark comparing Ollama, llama.cpp, and vLLM on the same prompt set.
 - Add examples for prompt-injection testing and output validation.
 - Add an MCP server example that exposes safe read-only Kubernetes diagnostics.
 
@@ -260,8 +257,6 @@ Use these files together:
 - [`QUICKSTART.md`](./QUICKSTART.md) for the fastest hands-on entry point.
 - [`ROADMAP.md`](./ROADMAP.md) for the 24-week learning plan.
 - [`STUDY_MATERIALS.md`](./STUDY_MATERIALS.md) for curated external resources and portfolio ideas.
-- [`HOME_LAB_REQUIREMENTS.md`](./HOME_LAB_REQUIREMENTS.md) for home lab, local LLM, API-first, NVIDIA NIM, and Hugging Face setup guidance.
-- [`AI_ECOSYSTEM.md`](./AI_ECOSYSTEM.md) for model-fit tools, US/Chinese AI company watchlists, and model selection guidance.
 - [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md) for common setup and runtime issues.
 - [`BADGES.md`](./BADGES.md) for learner achievement ideas.
 

@@ -165,9 +165,7 @@ Use this companion guide with [`ROADMAP.md`](./ROADMAP.md) when you want more de
 ## 🧭 Recommended Order for Beginners
 
 1. [`QUICKSTART.md`](./QUICKSTART.md) for the fastest hands-on entry point.
-2. [`HOME_LAB_REQUIREMENTS.md`](./HOME_LAB_REQUIREMENTS.md) to choose local hardware, cloud APIs, NVIDIA NIM, or Hugging Face.
-3. [`AI_ECOSYSTEM.md`](./AI_ECOSYSTEM.md) to track llmfit, llm-checker, AI companies, and model families.
-4. [`ROADMAP.md`](./ROADMAP.md) for the 24-week progression.
-5. [`12-days-series/README.md`](./12-days-series/README.md) for daily labs.
-6. This study guide for deeper reading and extra projects.
-7. [`projects/`](./projects/) for portfolio-level implementation practice.
+2. [`ROADMAP.md`](./ROADMAP.md) for the 24-week progression.
+3. [`12-days-series/README.md`](./12-days-series/README.md) for daily labs.
+4. This study guide for deeper reading and extra projects.
+5. [`projects/`](./projects/) for portfolio-level implementation practice.
