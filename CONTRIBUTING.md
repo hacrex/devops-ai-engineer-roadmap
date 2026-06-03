@@ -121,7 +121,7 @@ When adding to `12-days-series/`:
 
 Example:
 ```markdown
-![Architecture](../../diagrams/rag-architecture.svg)
+![Architecture](./diagrams/rag-architecture.mmd)
 ```
 
 ## 🔀 Pull Request Process

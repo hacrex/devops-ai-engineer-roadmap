@@ -71,7 +71,7 @@ After exploring these resources:
 1. Implement a project using one of the frameworks
 2. Contribute to open-source agent projects
 3. Share your learnings with the community
-4. Proceed to [Day 09: RAG + Vector Databases](../day09-rag-vector-databases/)
+4. Proceed to [Day 09: RAG + Vector Databases](../../day09-rag-vector-db/)
 
 ---
 
