@@ -191,7 +191,7 @@ Once you've checked all items:
 
 1. Review any unchecked items
 2. Complete at least 2 lab exercises
-3. Move to [Day 09: RAG + Vector Databases](../day09-rag-vector-databases/)
+3. Move to [Day 09: RAG + Vector Databases](../day09-rag-vector-db/)
 
 ---
 

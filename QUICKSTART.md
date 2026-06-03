@@ -93,6 +93,7 @@ make test
 ## 🆘 Need Help?
 
 - 📖 Full documentation: [README.md](README.md)
+- 📚 Deeper study resources: [STUDY_MATERIALS.md](STUDY_MATERIALS.md)
 - 🐛 Found an issue? [Open an Issue](https://github.com/your-repo/issues)
 - 💬 Questions? Check [Troubleshooting Guide](TROUBLESHOOTING.md)
 - 🤝 Want to contribute? See [CONTRIBUTING.md](CONTRIBUTING.md)

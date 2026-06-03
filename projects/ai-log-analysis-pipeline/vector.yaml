@@ -1,0 +1,28 @@
+sources:
+  host_logs:
+    type: file
+    include:
+      - /var/log/*.log
+    read_from: end
+
+transforms:
+  normalize_logs:
+    type: remap
+    inputs:
+      - host_logs
+    source: |-
+      .service = get_env_var("VECTOR_SERVICE_NAME") ?? "host-log"
+      .severity = "ERROR"
+      .message = string!(.message)
+
+sinks:
+  analyzer:
+    type: http
+    inputs:
+      - normalize_logs
+    uri: http://log-analyzer:8383/logs
+    method: post
+    encoding:
+      codec: json
+    healthcheck:
+      enabled: false

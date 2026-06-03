@@ -1,213 +1,271 @@
 # 🚀 DevOps AI Engineer Roadmap
 
 [![Platform](https://img.shields.io/badge/Platform-Kubernetes%20%7C%20Docker%20%7C%20Cloud-blue?style=for-the-badge&logo=kubernetes)](https://kubernetes.io)
-[![GPU](https://img.shields.io/badge/Hardware-NVIDIA%20CUDA%20%7C%20MIG-green?style=for-the-badge&logo=nvidia)](https://nvidia.com)
-[![Frameworks](https://img.shields.io/badge/AI-vLLM%20%7C%20Ollama%20%7C%20KServe-orange?style=for-the-badge&logo=huggingface)](https://github.com/vllm-project/vllm)
+[![AI Stack](https://img.shields.io/badge/AI-vLLM%20%7C%20Ollama%20%7C%20RAG-orange?style=for-the-badge)](./STUDY_MATERIALS.md)
+[![Projects](https://img.shields.io/badge/Hands--on-5%20Capstone%20Projects-green?style=for-the-badge)](./projects/)
 [![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)](./LICENSE)
 
-Welcome to the **DevOps AI Engineer Roadmap**—a comprehensive, production-grade, and deeply technical guide designed to transition traditional DevOps, Platform, and SRE engineers into world-class **AI Infrastructure and Platform Engineers**. 
+A practical, project-first roadmap for DevOps, Platform, SRE, and Cloud engineers who want to become **AI Infrastructure / AI Platform Engineers**.
 
-As Generative AI, Large Language Models (LLMs), and autonomous AI agents become core to enterprise systems, the demand has shifted from simple application deployments to building **scalably managed, high-performance, cost-optimized, and secure AI platforms**. This repository serves as your ultimate hands-on handbook.
-
----
-
-## 🏗️ The DevOps AI Engineer Technical Stack
-
-```
-                     ┌─────────────────────────────────────────────────────────┐
-                     │              Agentic Workflows & Multi-Agent            │
-                     │          (LangChain, CrewAI, AutoGen, n8n, MCP)         │
-                     └────────────────────────────┬────────────────────────────┘
-                                                  ▼
-                     ┌─────────────────────────────────────────────────────────┐
-                     │          AI Observability & Guardrails/Security         │
-                     │        (Langfuse, OpenLIT, LlamaGuard, NeMo, OTel)      │
-                     └────────────────────────────┬────────────────────────────┘
-                                                  ▼
-                     ┌─────────────────────────────────────────────────────────┐
-                     │           Vector Databases & Hybrid RAG Runtimes        │
-                     │            (Qdrant, ChromaDB, pgvector, FAISS)          │
-                     └────────────────────────────┬────────────────────────────┘
-                                                  ▼
-                     ┌─────────────────────────────────────────────────────────┐
-                     │             Inference Engines & Serving APIs            │
-                     │               (vLLM, KServe, Triton, Ollama)            │
-                     └────────────────────────────┬────────────────────────────┘
-                                                  ▼
-                     ┌─────────────────────────────────────────────────────────┐
-                     │         Kubernetes Orchestration & Autoscaling          │
-                     │        (K8s GPU Operator, MIG, Karpenter, KEDA)         │
-                     └────────────────────────────┬────────────────────────────┘
-                                                  ▼
-                     ┌─────────────────────────────────────────────────────────┐
-                     │       Bare-Metal & Cloud GPU Infrastructure (IaC)       │
-                     │       (NVIDIA A100/H100/L4, Terraform, Host OS drivers) │
-                     └─────────────────────────────────────────────────────────┘
-```
+This repository connects traditional infrastructure skills—Linux, containers, Kubernetes, Terraform, CI/CD, observability, and security—with the modern AI platform stack: local LLMs, GPU scheduling, inference serving, RAG systems, agents, MCP, and AI safety.
 
 ---
 
-## 🗺️ Roadmap Core Syllabus
+## 📌 Table of Contents
 
-The curriculum is structured into 13 progressive modules, taking you from bare-metal container networking all the way to autonomous self-healing SRE agents.
+- [Who This Is For](#-who-this-is-for)
+- [What You Will Build](#-what-you-will-build)
+- [Repository Map](#-repository-map)
+- [Recommended Learning Paths](#-recommended-learning-paths)
+- [Core Curriculum](#-core-curriculum)
+- [Capstone Projects](#-capstone-projects)
+- [Quick Start](#-quick-start)
+- [Suggested Improvements for This Repo](#-suggested-improvements-for-this-repo)
+- [Contributing](#-contributing)
 
-| Module | Core Topics | Highlights |
+---
+
+## 👤 Who This Is For
+
+This roadmap is designed for learners who already know at least one of these areas and want to move toward AI platform work:
+
+- **DevOps engineers** who want to deploy and operate LLM-powered systems.
+- **SREs** who want to build AI-assisted observability, alerting, and remediation workflows.
+- **Platform engineers** who want to run GPU-backed inference platforms on Kubernetes.
+- **Cloud engineers** who want to provision AI-ready infrastructure using Terraform and Kubernetes.
+- **Backend engineers** who want to understand RAG, model serving, and production AI operations.
+
+If you are new to DevOps, start with the [Fundamentals](./fundamentals/) modules and the [12 Days Series](./12-days-series/README.md) before jumping into the advanced projects.
+
+---
+
+## 🧪 What You Will Build
+
+By following this repository, you will practice building:
+
+- Local LLM runtimes with Ollama and llama.cpp-style workflows.
+- Secure Kubernetes manifests for AI workloads.
+- RAG pipelines with vector databases and local inference.
+- AI-assisted log analysis and incident triage services.
+- GPU-aware Kubernetes inference platforms with autoscaling.
+- Agentic DevOps tools that interact with infrastructure safely.
+- Observability and guardrail patterns for LLM applications.
+
+---
+
+## 🗂️ Repository Map
+
+| Path | Purpose |
+| :--- | :--- |
+| [`ROADMAP.md`](./ROADMAP.md) | 24-week phased roadmap from infrastructure fundamentals to AI security and AIOps. |
+| [`QUICKSTART.md`](./QUICKSTART.md) | Fastest path to run a local lab and start building. |
+| [`STUDY_MATERIALS.md`](./STUDY_MATERIALS.md) | Curated study resources, official docs, labs, portfolio ideas, and milestones. |
+| [`12-days-series/`](./12-days-series/README.md) | Daily hands-on learning sequence for core DevOps + AI skills. |
+| [`fundamentals/`](./fundamentals/) | Linux, networking, Docker, Kubernetes, CI/CD, Terraform, storage, and Python automation notes. |
+| [`prompt-engineering/`](./prompt-engineering/) | Prompting patterns, structured outputs, tool use, and evaluation concepts. |
+| [`local-llms/`](./local-llms/) | Local model runtimes, model formats, quantization, and performance tuning. |
+| [`kubernetes-ai/`](./kubernetes-ai/) | GPU Operator, inference serving, KServe, vLLM, KEDA, and Kubernetes AI operations. |
+| [`rag-vector-db/`](./rag-vector-db/) | Retrieval-augmented generation, embeddings, Qdrant, ChromaDB, pgvector, and vector search. |
+| [`ai-agents/`](./ai-agents/) | Agent design, tool calling, safe automation, and multi-agent workflows. |
+| [`mcp/`](./mcp/) | Model Context Protocol concepts and server patterns. |
+| [`observability-aiops/`](./observability-aiops/) | OpenTelemetry, AI tracing, logs, metrics, and incident automation. |
+| [`ai-security/`](./ai-security/) | Prompt injection, guardrails, secrets, network policy, and LLM security risks. |
+| [`projects/`](./projects/) | Portfolio-grade capstone projects and runnable examples. |
+| [`diagrams/`](./diagrams/README.md) | Mermaid architecture diagrams and rendering instructions. |
+
+---
+
+## 🧭 Recommended Learning Paths
+
+### 🟢 Beginner: DevOps to AI Foundations
+
+1. Read [`QUICKSTART.md`](./QUICKSTART.md).
+2. Complete [`12-days-series/day01-linux-containers`](./12-days-series/day01-linux-containers/).
+3. Complete the Kubernetes and Python automation days in [`12-days-series/`](./12-days-series/README.md).
+4. Read [`local-llms/`](./local-llms/) and run one local model.
+5. Build the [`AI DevOps Copilot`](./projects/ai-devops-copilot/) project.
+
+### 🟡 Intermediate: Platform Engineer to AI Platform Engineer
+
+1. Review [`fundamentals/kubernetes-basics.md`](./fundamentals/kubernetes-basics.md) and [`fundamentals/terraform.md`](./fundamentals/terraform.md).
+2. Study [`kubernetes-ai/`](./kubernetes-ai/) and [`local-llms/`](./local-llms/).
+3. Build the [`Local RAG Assistant`](./projects/local-rag-assistant/).
+4. Deploy the [`Kubernetes AI Platform`](./projects/kubernetes-ai-platform/).
+5. Add observability from [`observability-aiops/`](./observability-aiops/).
+
+### 🔴 Advanced: SRE / AIOps / Security Specialist
+
+1. Study [`ai-agents/`](./ai-agents/), [`mcp/`](./mcp/), and [`ai-security/`](./ai-security/).
+2. Build the [`AI Log Analysis Pipeline`](./projects/ai-log-analysis-pipeline/).
+3. Build the [`AI SRE Agent`](./projects/ai-sre-agent/).
+4. Add approval gates, audit logs, and rollback controls.
+5. Document security tradeoffs using [`STUDY_MATERIALS.md`](./STUDY_MATERIALS.md).
+
+---
+
+## 🧱 Core Curriculum
+
+| Module | Topic | Key Outcomes |
 | :--- | :--- | :--- |
-| **[1. Fundamentals](./fundamentals/)** | Linux internals, sysadmin diagnostics, namespaces, cgroups v2, Rook/Ceph, IaC | Advanced eBPF networking, CSI configurations, Multi-stage GPU Dockerfiles. |
-| **[2. Prompt Engineering](./prompt-engineering/)** | Context windows, Chain-of-Thought, System instructions, Tool calling | Prompt optimization, Structured JSON generation, LLM evaluations. |
-| **[3. Local LLMs](./local-llms/)** | Ollama, llama.cpp, OpenWebUI, Quantization, GPU/vRAM sizing | Offline model serving, GGUF/AWQ compilation, local CPU/GPU tuning. |
-| **[4. Kubernetes AI](./kubernetes-ai/)** | NVIDIA GPU Operator, vLLM, KServe, Ray Serve, Karpenter, KEDA | Multi-Instance GPU (MIG), fractional GPU scheduling, Helm production configs. |
-| **[5. Hugging Face](./huggingface/)** | Transformers, Datasets, Safetensors, Model Registry, CLI tools | Parameter-Efficient Fine-Tuning (PEFT), LoRA adaptation workflows, quantization. |
-| **[6. AI Agents](./ai-agents/)** | Autonomous agents, Multi-agent design, Tool interfaces, Coding assistants | Self-correcting workflows, secure agent sandboxing, infra auto-remediation. |
-| **[7. Model Context Protocol](./mcp/)** | MCP Standard, MCP Servers, Context Window passing, Client-Server Runtimes | Creating custom Python/Go MCP servers to bridge LLMs with Kubernetes/APIs. |
-| **[8. Agentic Control (Skills.md)](./skills-md/)** | Agent control instructions, state enforcement, runtime execution limits | Defining structured behavioral rules for operational AI agents. |
-| **[9. Automation Orchestration](./orchestration/)** | n8n, sim.io, event-driven webhooks, AI pipeline orchestration | Workflow automation diagrams, JSON pipeline logic, chat interfaces. |
-| **[10. RAG & Vector Databases](./rag-vector-db/)** | Vector embeddings, Qdrant, ChromaDB, pgvector, hybrid search | Semantic chunks, document processing pipelines, scaling database pods. |
-| **[11. Observability & AIOps](./observability-aiops/)** | OpenTelemetry, Langfuse, OpenLIT, distributed tracing, AI log analysis | vLLM metric tracking, Prometheus/Grafana Dashboards, trace analysis. |
-| **[12. AI Security & Guardrails](./ai-security/)** | OWASP Top 10 LLM, Prompt injection, Llama Guard, secrets management | Network policies for vector stores, data sanitization, KMS integrations. |
-| **[13. Capstone Projects](./projects/)** | Production-grade reference architectures and deployable platforms | Hands-on source code, Terraform scripts, Helm charts, and setups. |
+| 1 | [Fundamentals](./fundamentals/) | Linux, networking, Docker, Kubernetes basics, CI/CD, Terraform, storage, and automation. |
+| 2 | [Prompt Engineering](./prompt-engineering/) | Prompt patterns, context management, structured outputs, tool calls, and evaluations. |
+| 3 | [Local LLMs](./local-llms/) | Ollama, model formats, quantization, local inference, and CPU/GPU tradeoffs. |
+| 4 | [Hugging Face](./huggingface/) | Transformers, datasets, model registries, tokenizers, and model workflows. |
+| 5 | [Kubernetes AI](./kubernetes-ai/) | GPU scheduling, NVIDIA GPU Operator, vLLM, KServe, KEDA, and inference operations. |
+| 6 | [RAG & Vector Databases](./rag-vector-db/) | Embeddings, chunking, Qdrant, ChromaDB, pgvector, hybrid retrieval, and evaluation. |
+| 7 | [AI Agents](./ai-agents/) | Tool use, autonomous workflows, guardrails, and operational agents. |
+| 8 | [Model Context Protocol](./mcp/) | MCP architecture, server design, tool/resource exposure, and client integration. |
+| 9 | [Orchestration](./orchestration/) | n8n-style workflows, event routing, approvals, and automation pipelines. |
+| 10 | [Observability & AIOps](./observability-aiops/) | Metrics, logs, traces, LLM observability, alerting, and incident intelligence. |
+| 11 | [AI Security](./ai-security/) | Prompt injection, secrets, data leakage, network policy, and guardrail design. |
+| 12 | [Capstone Projects](./projects/) | End-to-end portfolio projects that combine infrastructure, AI, and operations. |
 
 ---
 
-## 📈 Platform & Inference Traffic Flow Lifecycle
+## 🛠️ Capstone Projects
 
-The following Mermaid sequence diagram illustrates the lifecycle of a production-grade RAG & inference request flowing through a cloud-native Kubernetes AI architecture:
+| Project | What it teaches | Start here |
+| :--- | :--- | :--- |
+| Local RAG Assistant | Streamlit, Qdrant, embeddings, Ollama, and local RAG loops. | [`projects/local-rag-assistant/`](./projects/local-rag-assistant/) |
+| AI DevOps Copilot | Click CLI, local model prompts, Kubernetes YAML, Terraform generation, and safe fallbacks. | [`projects/ai-devops-copilot/`](./projects/ai-devops-copilot/) |
+| AI Log Analysis Pipeline | FastAPI, Vector log routing, LLM-based diagnosis, and simulation mode. | [`projects/ai-log-analysis-pipeline/`](./projects/ai-log-analysis-pipeline/) |
+| Kubernetes AI Platform | GPU inference, vLLM/KServe manifests, KEDA scaling, and Terraform GPU infrastructure. | [`projects/kubernetes-ai-platform/`](./projects/kubernetes-ai-platform/) |
+| AI SRE Agent | Alertmanager webhooks, Kubernetes diagnostics, remediation decisions, and safe auto-healing. | [`projects/ai-sre-agent/`](./projects/ai-sre-agent/) |
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User as Engineer / User
-    participant Gateway as Istio Ingress Gateway
-    participant Guardrail as Security Guardrail (LlamaGuard)
-    participant Agent as Orchestration Agent (n8n/Python)
-    participant VectorDB as Vector DB (Qdrant/pgvector)
-    participant LLM as Inference Engine (vLLM on K8s GPU)
-    participant Obs as Observability (Langfuse/OpenLIT)
+---
 
-    User->>Gateway: POST /v1/chat/completions (with Prompt)
-    Gateway->>Obs: Start Span (Tracing)
-    Gateway->>Guardrail: Scan raw input for Prompt Injection
-    alt Threat Detected
-        Guardrail-->>Gateway: 403 Forbidden / Injection Blocked
-        Gateway-->>User: Blocked Request (Security Policy)
-    else Clean Prompt
-        Guardrail-->>Gateway: Sanitized Prompt OK
-        Gateway->>Agent: Route Request to Orchestration Agent
-        Agent->>VectorDB: Query Semantic Embeddings (Context Retrieval)
-        VectorDB-->>Agent: High-Relevance Context Chunks
-        Agent->>Agent: Construct Augmented Prompt (Context + User Input)
-        Agent->>LLM: POST /v1/completions (vLLM GPU Instance)
-        LLM-->>Agent: Generated LLM Response Token Stream
-        Agent->>Guardrail: Scan output for Data Leakage/Hallucination
-        Guardrail-->>Agent: Output Approved
-        Agent-->>Gateway: Clean Final Response
-        Gateway->>Obs: Record Metrics (Latency, Tokens, Cost, GPU utilization)
-        Gateway-->>User: Stream / Return Markdown Response
-    end
-end
+## ⚡ Quick Start
+
+### Option 1: Read and choose a path
+
+```bash
+cat QUICKSTART.md
+cat ROADMAP.md
+cat STUDY_MATERIALS.md
 ```
 
----
+### Option 2: Run the AI DevOps Copilot
 
-## 🛠️ Capstone Projects Portfolio
-
-Inside the **[`projects/`](./projects/)** directory, you will find five full-stack, production-ready, hands-on platforms:
-
-1. **[Local RAG Assistant](./projects/local-rag-assistant/)**: A private enterprise search tool running completely local. Built using Streamlit, Ollama, and Qdrant, deployed via Docker Compose.
-2. **[AI DevOps Copilot](./projects/ai-devops-copilot/)**: A smart CLI utility leveraging local LLMs to generate, lint, and deploy Kubernetes YAML manifests and Terraform configurations safely.
-3. **[AI Log Analysis Pipeline](./projects/ai-log-analysis-pipeline/)**: An event-driven telemetry stream using Vector.dev and local inference to perform automated anomaly classification and root cause analysis.
-4. **[Kubernetes AI Platform](./projects/kubernetes-ai-platform/)**: High-availability inference hosting using the NVIDIA GPU Operator, vLLM, KServe, and KEDA autoscaling based on concurrency queues. Includes GKE-based Terraform modules.
-5. **[AI SRE Agent](./projects/ai-sre-agent/)**: An autonomous self-healing operator that listens to Prometheus Alertmanager alerts, runs system diagnostics via kubectl, and proposes/applies localized rollbacks or restarts.
-
----
-
-## 🚀 How to Use This Roadmap
-
-### 1. Choose Your Path
-* **The Infrastructure Purist**: Focus on **Modules 1, 4, 10, 11, and 12**. Learn to provision GPUs, run vLLM on Kubernetes, orchestrate Qdrant clusters, and secure model execution.
-* **The Agentic Automation Specialist**: Focus on **Modules 2, 3, 6, 7, 8, and 9**. Learn to build MCP servers, write custom agents for CI/CD, and run light-weight local LLMs.
-* **The Complete AI Platform Architect**: Go cover-to-cover, implementing the Capstone projects as your learning gates.
-
-### 2. Set Up Your Environment
-To run the labs, we recommend a workstation or cloud VM with:
-* A CUDA-compatible GPU (e.g., NVIDIA L4, T4, A10G, or RTX 3090/4090 with 16GB+ vRAM).
-* Docker & Docker Compose.
-* Minikube, Kind, or a managed cloud Kubernetes cluster (EKS/GKE).
-* Python 3.10+, Go 1.20+, and Terraform.
-
-### 3. Star and Contribute
-Join our open-source community by starring this repository and submitting PRs! If you find a bug in the Kubernetes manifests or have a faster Python workflow script, we welcome contributions.
-
-<p align="center">
-  <a href="#-roadmap-core-syllabus"><img src="https://img.shields.io/badge/📚-Start_Learning-blue?style=for-the-badge" alt="Start Learning"/></a>
-  <a href="./projects/"><img src="https://img.shields.io/badge/🛠️-Build_Projects-green?style=for-the-badge" alt="Build Projects"/></a>
-  <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/🤝-Contribute-orange?style=for-the-badge" alt="Contribute"/></a>
-  <a href="https://github.com/yourusername/devops-ai-roadmap/stargazers"><img src="https://img.shields.io/badge/⭐-Star_Repo-yellow?style=for-the-badge" alt="Star Repo"/></a>
-</p>
-
----
-
-## 🏆 Community & Engagement
-
-### Join Our Growing Community
-- 💬 **Discord Server**: [Join here](#) - Get help, share projects, network with peers
-- 🐦 **Twitter/X**: [@YourHandle](#) - Daily tips, updates, and AI infrastructure insights  
-- 💼 **LinkedIn**: [Follow us](#) - Career advice, success stories, job opportunities
-- 📧 **Newsletter**: [Subscribe](#) - Monthly digest of new modules, projects, and community highlights
-
-### Achievement System
-Track your progress and earn badges as you complete modules and projects! See [BADGES.md](./BADGES.md) for the full list of achievable milestones.
-
-### Current Challenges
-🎯 **Monthly Challenge**: Deploy a production RAG pipeline with Qdrant + vLLM
-- Submit your solution in #challenges on Discord
-- Winners featured in README and social media
-- Earn exclusive "RAG Specialist" badge
-
-### Contributor Spotlight
-Shoutout to our top contributors this month! 🌟
-- Check out [Contributors Page](../../graphs/contributors) to see who's making this roadmap better
-- Want to be featured? Submit your first PR!
-
----
-
-## 📈 Repository Stats
-
-![GitHub Stars](https://img.shields.io/github/stars/yourusername/devops-ai-roadmap?style=for-the-badge&color=yellow&logo=github)
-![GitHub Forks](https://img.shields.io/github/forks/yourusername/devops-ai-roadmap?style=for-the-badge&color=blue&logo=github)
-![GitHub Issues](https://img.shields.io/github/issues/yourusername/devops-ai-roadmap?style=for-the-badge&color=red&logo=github)
-![GitHub Contributors](https://img.shields.io/github/contributors/yourusername/devops-ai-roadmap?style=for-the-badge&color=green&logo=github)
-![Last Commit](https://img.shields.io/github/last-commit/yourusername/devops-ai-roadmap?style=for-the-badge&logo=git)
-
----
-
-## 📣 Share This Roadmap
-
-Help others discover this resource! Copy and share these templates:
-
-**Twitter/X:**
-```
-🚀 Just discovered the DevOps AI Engineer Roadmap!
-
-Comprehensive guide covering:
-☸️ K8s + GPU orchestration
-🦙 Local LLM deployment
-🔗 RAG pipelines
-🤖 AI agents
-
-100% FREE & open-source!
-
-[LINK]
-
-#DevOps #AI #Kubernetes #LLM
+```bash
+cd projects/ai-devops-copilot
+python -m pip install -r requirements.txt
+python copilot.py generate kubernetes --prompt "nginx deployment with 3 replicas"
 ```
 
-**LinkedIn:** See [SOCIAL_MEDIA.md](./SOCIAL_MEDIA.md) for ready-to-use posts!
+### Option 3: Run project tests
+
+```bash
+python -m pytest projects/*/tests -q
+```
+
+> Some labs use Docker, Kubernetes, GPUs, Ollama, or model downloads. When those services are unavailable, several examples include local simulation fallbacks so learners can still inspect the workflow.
 
 ---
 
-*Made with ❤️ by the DevOps AI Community | [Community Guidelines](./CONTRIBUTING.md)*
+## 🧰 Recommended Local Tooling
+
+Install these tools as you progress through the roadmap:
+
+- Python 3.10+ or 3.11+
+- Docker and Docker Compose
+- `kubectl`, Kind or Minikube
+- Terraform
+- Ollama or another local model runtime
+- A code editor with Markdown and Mermaid preview support
+- Optional: NVIDIA GPU drivers and CUDA toolkit for GPU labs
 
 ---
 
-*“The future of DevOps isn't just about managing code delivery. It's about orchestrating intelligence. Let's build the platforms of tomorrow.”*
+## ✅ Quality Checks
+
+The repository includes tests and validation workflows for learning projects and examples:
+
+```bash
+python -m pytest projects/*/tests -q
+python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+python -m black --check $(git ls-files '*.py')
+```
+
+The GitHub Actions workflow also validates Markdown links, YAML syntax, Dockerfiles, and security scanning where supported.
+
+---
+
+## 💡 Suggested Improvements for This Repo
+
+These are the highest-value next improvements to make the repository more useful and production-like:
+
+### Documentation and learning experience
+
+- Add screenshots or short GIF demos for each capstone project.
+- Add architecture diagrams to each project README using Mermaid and exported PNG/SVG files.
+- Add a glossary for AI infrastructure terms such as KV cache, quantization, embeddings, HNSW, MCP, and guardrails.
+- Add beginner, intermediate, and advanced issue labels to guide new contributors.
+- Add a progress tracker template that learners can copy into their own fork.
+
+### Project reliability
+
+- Add `.env.example` files for every runnable project.
+- Add health checks to all Docker Compose services.
+- Add Docker Compose profiles for CPU-only and GPU-enabled modes.
+- Add smoke-test scripts for each project under a shared `scripts/` directory.
+- Add Make targets at the repository root for `test`, `lint`, `format`, `links`, and `docs`.
+
+### AI platform depth
+
+- Add a vLLM OpenAI-compatible inference demo with request/response examples.
+- Add a RAG evaluation notebook or script that scores retrieval quality before and after chunking changes.
+- Add a model-serving benchmark comparing Ollama, llama.cpp, and vLLM on the same prompt set.
+- Add examples for prompt-injection testing and output validation.
+- Add an MCP server example that exposes safe read-only Kubernetes diagnostics.
+
+### Security and production readiness
+
+- Add Kubernetes NetworkPolicy examples for vector databases and inference services.
+- Add RBAC examples for read-only agents and approval-gated remediation agents.
+- Add secret-management examples using environment variables, sealed secrets, or cloud secret managers.
+- Add threat models for the RAG assistant, AI SRE agent, and DevOps copilot.
+- Add audit logging for any agent action that reads infrastructure state or proposes remediation.
+
+### Community and maintainability
+
+- Replace placeholder community links with real community channels when available.
+- Add a `CODEOWNERS` file for project/module ownership.
+- Add pull request templates for docs, labs, and code changes.
+- Add a release checklist for major curriculum updates.
+- Add a public project board or milestone list for the next roadmap improvements.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome. Good first contributions include:
+
+- Fixing broken links or typos.
+- Improving lab instructions.
+- Adding diagrams or screenshots.
+- Adding tests for project examples.
+- Adding security notes and production hardening guidance.
+
+Before opening a PR, read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and keep changes focused.
+
+---
+
+## 📚 More Study Resources
+
+Use these files together:
+
+- [`QUICKSTART.md`](./QUICKSTART.md) for the fastest hands-on entry point.
+- [`ROADMAP.md`](./ROADMAP.md) for the 24-week learning plan.
+- [`STUDY_MATERIALS.md`](./STUDY_MATERIALS.md) for curated external resources and portfolio ideas.
+- [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md) for common setup and runtime issues.
+- [`BADGES.md`](./BADGES.md) for learner achievement ideas.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+**Build the platform. Operate the intelligence. Document everything.**

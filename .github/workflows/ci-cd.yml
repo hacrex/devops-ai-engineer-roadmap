@@ -11,78 +11,125 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Validate Markdown Links
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'
-          check-modified-files-only: 'yes'
-      
-      - name: Check Markdown Formatting
-        run: |
-          echo "Checking markdown files for basic formatting..."
-          find . -name "*.md" -type f | head -20
+          check-modified-files-only: 'no'
 
-  validate-kubernetes:
+      - name: Check Markdown Formatting Inventory
+        run: |
+          echo "Markdown files tracked in this repository:"
+          find . -name "*.md" -type f | sort
+
+  validate-yaml:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Install kubeval
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install YAML parser
+        run: python -m pip install --upgrade pyyaml
+
+      - name: Validate YAML Syntax
         run: |
-          wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
-          tar xf kubeval-linux-amd64.tar.gz
-          sudo mv kubeval /usr/local/bin/
-      
-      - name: Validate Kubernetes Manifests
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          import yaml
+
+          failures = []
+          for path in sorted(list(Path('.').rglob('*.yaml')) + list(Path('.').rglob('*.yml'))):
+              if '.git' in path.parts:
+                  continue
+              try:
+                  with path.open() as handle:
+                      list(yaml.safe_load_all(handle))
+              except Exception as exc:
+                  failures.append(f"{path}: {exc}")
+
+          if failures:
+              print("YAML validation failures:")
+              print("\n".join(failures))
+              sys.exit(1)
+
+          print("All YAML files parsed successfully.")
+          PY
+
+      - name: Validate Kubernetes Manifest Shape
         run: |
-          find . -name "*.yaml" -o -name "*.yml" | grep -v ".git" | while read file; do
-            echo "Validating $file"
-            kubeval "$file" --ignore-missing-schemas || true
-          done
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+          import yaml
+
+          failures = []
+          for path in sorted(list(Path('.').rglob('*.yaml')) + list(Path('.').rglob('*.yml'))):
+              if '.git' in path.parts or '.github' in path.parts:
+                  continue
+              with path.open() as handle:
+                  docs = [doc for doc in yaml.safe_load_all(handle) if isinstance(doc, dict)]
+              for index, doc in enumerate(docs, start=1):
+                  has_api = 'apiVersion' in doc
+                  has_kind = 'kind' in doc
+                  if has_api != has_kind:
+                      failures.append(f"{path} document {index}: apiVersion and kind must appear together")
+
+          if failures:
+              print("Kubernetes manifest shape failures:")
+              print("\n".join(failures))
+              sys.exit(1)
+
+          print("Kubernetes-like manifests have apiVersion/kind pairs.")
+          PY
 
   validate-python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      
+          python-version: '3.11'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install flake8 pytest black
-      
-      - name: Lint with flake8
-        run: |
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
-      
-      - name: Test with pytest
-        run: |
-          if [ -d "tests" ]; then pytest tests/ || true; fi
+          for req in $(find . -name requirements.txt -type f | sort); do
+            python -m pip install -r "$req"
+          done
+          python -m pip install flake8 pytest black
+
+      - name: Lint fatal Python errors
+        run: python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Check Python formatting
+        run: python -m black --check $(git ls-files '*.py')
+
+      - name: Run project tests
+        run: python -m pytest projects/*/tests -q
 
   validate-docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Find and lint Dockerfiles
-        run: |
-          find . -name "Dockerfile*" -type f | while read file; do
-            echo "Checking $file"
-            hadolint "$file" || true
-          done
-        continue-on-error: true
+
+      - name: Lint Dockerfiles
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
 
   security-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -90,10 +137,8 @@ jobs:
           scan-ref: '.'
           format: 'sarif'
           output: 'trivy-results.sarif'
-        continue-on-error: true
-      
+
       - name: Upload Trivy scan results
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
-        continue-on-error: true
