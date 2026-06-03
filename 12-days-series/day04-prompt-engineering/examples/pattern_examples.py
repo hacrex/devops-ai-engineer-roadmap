@@ -10,6 +10,7 @@ from typing import List, Dict, Any
 # 1. ZERO-SHOT PROMPTING
 # =============================================================================
 
+
 def zero_shot_sentiment(text: str) -> str:
     """Classify sentiment without examples."""
     prompt = f"""
@@ -20,6 +21,7 @@ Text: "{text}"
 Sentiment:
 """
     return prompt
+
 
 def zero_shot_classification(task: str, data: str) -> str:
     """Generic zero-shot classifier."""
@@ -33,9 +35,11 @@ Result:
 """
     return prompt
 
+
 # =============================================================================
 # 2. FEW-SHOT PROMPTING
 # =============================================================================
+
 
 def few_shot_entity_extraction(text: str) -> str:
     """Extract entities using few-shot examples."""
@@ -60,36 +64,42 @@ Entities:
 """
     return prompt
 
+
 def few_shot_text_transformation(input_text: str, transformation_type: str) -> str:
     """Transform text based on examples."""
     examples = {
         "summarize": [
             ("The quick brown fox jumps over the lazy dog.", "Fox jumps over dog."),
-            ("Machine learning is a subset of AI that enables systems to learn from data.", "ML learns from data."),
+            (
+                "Machine learning is a subset of AI that enables systems to learn from data.",
+                "ML learns from data.",
+            ),
         ],
         "formalize": [
             ("hey whats up", "Hello, how are you?"),
             ("gonna be late", "I will be arriving late."),
-        ]
+        ],
     }
-    
+
     prompt = f"""
 Transform the text according to the pattern shown in examples.
 
 """
     if transformation_type in examples:
         for i, (inp, out) in enumerate(examples[transformation_type], 1):
-            prompt += f"Example {i}:\nInput: \"{inp}\"\nOutput: \"{out}\"\n\n"
-    
+            prompt += f'Example {i}:\nInput: "{inp}"\nOutput: "{out}"\n\n'
+
     prompt += f"""Now transform:
 Input: "{input_text}"
 Output:
 """
     return prompt
 
+
 # =============================================================================
 # 3. CHAIN-OF-THOUGHT PROMPTING
 # =============================================================================
+
 
 def cot_math_problem(problem: str) -> str:
     """Solve math problems with step-by-step reasoning."""
@@ -101,6 +111,7 @@ Problem: {problem}
 Let's think step by step:
 """
     return prompt
+
 
 def cot_logical_reasoning(scenario: str, question: str) -> str:
     """Analyze scenarios with logical reasoning."""
@@ -120,6 +131,7 @@ Reasoning steps:
 Answer:
 """
     return prompt
+
 
 def cot_debugging(code: str, error: str) -> str:
     """Debug code systematically."""
@@ -143,14 +155,16 @@ Corrected code:
 """
     return prompt
 
+
 # =============================================================================
 # 4. SYSTEM PROMPTS & CONTEXT MANAGEMENT
 # =============================================================================
 
+
 def create_system_prompt(role: str, constraints: List[str], output_format: str) -> str:
     """Create a structured system prompt."""
     constraints_str = "\n".join(f"- {c}" for c in constraints)
-    
+
     prompt = f"""You are a {role}. Follow these constraints strictly:
 
 {constraints_str}
@@ -164,20 +178,26 @@ Remember:
 """
     return prompt
 
-def build_context_window(context_items: List[Dict[str, str]], max_tokens: int = 4000) -> str:
+
+def build_context_window(
+    context_items: List[Dict[str, str]], max_tokens: int = 4000
+) -> str:
     """Build a context window from multiple items."""
     context = "Relevant Context:\n\n"
     token_count = len(context)
-    
+
     for i, item in enumerate(context_items, 1):
-        item_text = f"[{i}] {item.get('source', 'Unknown')}: {item.get('content', '')}\n\n"
+        item_text = (
+            f"[{i}] {item.get('source', 'Unknown')}: {item.get('content', '')}\n\n"
+        )
         if token_count + len(item_text) > max_tokens:
             break
         context += item_text
         token_count += len(item_text)
-    
+
     context += "\nBased on the context above, answer the user's question.\n"
     return context
+
 
 # =============================================================================
 # 5. TOOL CALLING PATTERNS
@@ -190,21 +210,22 @@ TOOL_DEFINITIONS = {
         "parameters": {
             "type": "object",
             "properties": {
-                "expression": {"type": "string", "description": "Math expression to evaluate"}
+                "expression": {
+                    "type": "string",
+                    "description": "Math expression to evaluate",
+                }
             },
-            "required": ["expression"]
-        }
+            "required": ["expression"],
+        },
     },
     "search": {
         "name": "web_search",
         "description": "Search the web for current information",
         "parameters": {
             "type": "object",
-            "properties": {
-                "query": {"type": "string", "description": "Search query"}
-            },
-            "required": ["query"]
-        }
+            "properties": {"query": {"type": "string", "description": "Search query"}},
+            "required": ["query"],
+        },
     },
     "weather": {
         "name": "get_weather",
@@ -213,19 +234,22 @@ TOOL_DEFINITIONS = {
             "type": "object",
             "properties": {
                 "location": {"type": "string", "description": "City name"},
-                "date": {"type": "string", "description": "Date (YYYY-MM-DD)"}
+                "date": {"type": "string", "description": "Date (YYYY-MM-DD)"},
             },
-            "required": ["location"]
-        }
-    }
+            "required": ["location"],
+        },
+    },
 }
+
 
 def create_tool_calling_prompt(question: str, available_tools: List[str]) -> str:
     """Create a prompt that enables tool calling."""
     tools_json = ",\n  ".join(
-        str(TOOL_DEFINITIONS[tool]) for tool in available_tools if tool in TOOL_DEFINITIONS
+        str(TOOL_DEFINITIONS[tool])
+        for tool in available_tools
+        if tool in TOOL_DEFINITIONS
     )
-    
+
     prompt = f"""You are a helpful assistant with access to the following tools:
 
 Tools:
@@ -247,13 +271,14 @@ Response:
 """
     return prompt
 
+
 def parse_tool_response(response: str) -> Dict[str, Any]:
     """Parse a tool call from model response."""
     import json
     import re
-    
+
     # Try to extract JSON from response
-    json_match = re.search(r'\{[^}]*\}', response, re.DOTALL)
+    json_match = re.search(r"\{[^}]*\}", response, re.DOTALL)
     if json_match:
         try:
             return json.loads(json_match.group())
@@ -261,14 +286,16 @@ def parse_tool_response(response: str) -> Dict[str, Any]:
             pass
     return {"tool": None, "parameters": {}}
 
+
 # =============================================================================
 # 6. EVALUATION PROMPTS
 # =============================================================================
 
+
 def create_evaluation_prompt(original: str, generated: str, criteria: List[str]) -> str:
     """Evaluate generated content against criteria."""
     criteria_str = "\n".join(f"- {c}" for c in criteria)
-    
+
     prompt = f"""
 Evaluate the generated content against the following criteria:
 
@@ -290,6 +317,7 @@ Provide your evaluation as JSON:
 """
     return prompt
 
+
 # =============================================================================
 # MAIN DEMONSTRATION
 # =============================================================================
@@ -298,25 +326,27 @@ if __name__ == "__main__":
     print("=" * 80)
     print("PROMPT ENGINEERING PATTERN EXAMPLES")
     print("=" * 80)
-    
+
     # Zero-shot example
     print("\n1. ZERO-SHOT PROMPTING")
     print("-" * 40)
     prompt = zero_shot_sentiment("I absolutely love this product!")
     print(prompt)
-    
+
     # Few-shot example
     print("\n2. FEW-SHOT PROMPTING")
     print("-" * 40)
     prompt = few_shot_entity_extraction("Tesla opened a new factory in Berlin in 2023")
     print(prompt)
-    
+
     # Chain-of-thought example
     print("\n3. CHAIN-OF-THOUGHT PROMPTING")
     print("-" * 40)
-    prompt = cot_math_problem("If a train travels at 80 mph for 2.5 hours, then stops for 30 minutes, how far has it traveled?")
+    prompt = cot_math_problem(
+        "If a train travels at 80 mph for 2.5 hours, then stops for 30 minutes, how far has it traveled?"
+    )
     print(prompt)
-    
+
     # System prompt example
     print("\n4. SYSTEM PROMPT")
     print("-" * 40)
@@ -325,21 +355,21 @@ if __name__ == "__main__":
         constraints=[
             "Use clear, concise language",
             "Include code examples where relevant",
-            "Avoid jargon unless defined"
+            "Avoid jargon unless defined",
         ],
-        output_format="Markdown with headers and bullet points"
+        output_format="Markdown with headers and bullet points",
     )
     print(prompt)
-    
+
     # Tool calling example
     print("\n5. TOOL CALLING PROMPT")
     print("-" * 40)
     prompt = create_tool_calling_prompt(
         "What's the weather in Tokyo today and what's 15% of 240?",
-        ["weather", "calculator"]
+        ["weather", "calculator"],
     )
     print(prompt)
-    
+
     print("\n" + "=" * 80)
     print("All examples generated successfully!")
     print("=" * 80)

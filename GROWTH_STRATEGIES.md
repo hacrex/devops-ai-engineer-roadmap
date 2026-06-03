@@ -20,10 +20,10 @@ A comprehensive guide to organically grow your DevOps AI Engineer Roadmap reposi
 <!-- Add these to your README -->
 
 ## 🎯 Visual Learning Path
-![Learning Path](./diagrams/learning-path.png)
+![Learning Path](./diagrams/README.md)
 
 ## 📈 Project Architecture
-![Architecture](./diagrams/devops-ai-flowchart.png)
+![Architecture](./diagrams/devops-ai-flowchart.mmd)
 ```
 
 **Action Items:**

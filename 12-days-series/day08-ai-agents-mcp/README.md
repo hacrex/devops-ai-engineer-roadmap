@@ -642,7 +642,7 @@ After completing this module:
 1. ✅ Complete all lab exercises
 2. ✅ Review knowledge check answers
 3. ✅ Experiment with additional tools
-4. ➡️ Proceed to [Day 09: RAG + Vector Databases](../day09-rag-vector-databases/)
+4. ➡️ Proceed to [Day 09: RAG + Vector Databases](../day09-rag-vector-db/)
 
 ---
 

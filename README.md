@@ -166,7 +166,7 @@ Track your progress and earn badges as you complete modules and projects! See [B
 
 ### Contributor Spotlight
 Shoutout to our top contributors this month! 🌟
-- Check out [Contributors Page](../../graphs/contributors) to see who's making this roadmap better
+- Check out [Contributors Page](https://github.com/yourusername/devops-ai-roadmap/graphs/contributors) to see who's making this roadmap better
 - Want to be featured? Submit your first PR!
 
 ---
