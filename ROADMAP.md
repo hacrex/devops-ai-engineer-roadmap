@@ -2,7 +2,7 @@
 
 Transitioning from a traditional DevOps, Platform, or SRE engineer to an **AI Infrastructure & Platform Engineer** requires a deep understanding of hardware virtualization, high-throughput container networking, GPU resource orchestration, distributed inference, model security, and agentic workflows. 
 
-This roadmap is divided into **6 progressive phases** across a suggested 24-week timeline.
+This roadmap is divided into **6 progressive phases** across a suggested 24-week timeline. For additional books, docs, labs, and portfolio ideas, use the companion [Study Materials Guide](./STUDY_MATERIALS.md).
 
 ---
 
